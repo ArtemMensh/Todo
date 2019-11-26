@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+	
+	В этом проекте используются следующие библиотеки:
+
+		jQuery 1.10.2
+		jQuery UI 1.10.3
+		Bootstrap 2.2.2
+			
+	 -->
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Нарутрелло</title>
+
+        <link rel="stylesheet" href="lib/Bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" href="lib/jQuery/jquery.ui.min.css" />
+        <link rel="stylesheet" href="assets/todo.css" />
+    </head>
+
+    <body class="well">
+        <div id="container">
+
+            <div id="header">Менеджер задач</div>
+            
+            <div class="task-list" id="pending">
+                <h3>В очереди</h3>
+
+            </div>
+
+            <div class="task-list" id="inProgress">
+                <h3>В процессе</h3>
+            </div>
+
+            <div class="task-list" id="completed">
+                <h3>Завершено</h3>
+            </div>
+
+            <div class="task-list">
+                <h3>Добавить задачу</h3>
+                <form id="todo-form">
+                    <input type="text" placeholder="Заголовок" />
+                    <textarea placeholder="Описание"></textarea>
+                    <input type="text" id="datepicker" placeholder="Выберите дату (дд/мм/гггг)" />
+                   
+                    <input type="button" class="btn btn-primary" value="Добавить задачу" onclick="todo.add();" />
+                   
+                </form>
+
+                <input type="button" class="btn btn-primary" value="Очистить все" onclick="todo.clear();" />
+
+                <div id="delete-div">
+                    Перенесите сюда для удаления
+                </div>
+            </div>
+
+            <div style="clear:both;"></div>
+
+        </div>
+        <script type="text/javascript" src="lib/Bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/jQuery/jquery.ui.min.js"></script>
+        <script type="text/javascript" src="assets/todo.js"></script>
+
+        <script type="text/javascript">
+            $( "#datepicker" ).datepicker();
+            $( "#datepicker" ).datepicker("option", "dateFormat", "dd/mm/yy");
+
+            $(".todo-task").draggable();
+            todo.init();
+        </script>
+    </body>
+</html>
