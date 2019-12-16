@@ -169,7 +169,7 @@ data = data || {};
         title = inputs[0].value;
         description = inputs[1].value;
         date = inputs[2].value;
-        color = inputs[3].value;
+        color = inputs[3].style.backgroundColor;
 
 
         if (!title) {
