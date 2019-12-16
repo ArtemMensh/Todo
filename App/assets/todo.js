@@ -125,6 +125,18 @@ data = data || {};
             "data" : params.id
         }).appendTo(parent);
 
+         var i = $("<img />", {
+            "src": "61776.png"
+        })
+
+        i[0].style.width = "15px"
+        i[0].style.height = "15px"
+        i[0].style.float = "right"
+        
+
+
+        i.appendTo(wrapper);
+
         $("<div />", {
             "class" : defaults.todoHeader,
             "text": params.title
@@ -139,6 +151,9 @@ data = data || {};
             "class" : defaults.todoDescription,
             "text": params.description
         }).appendTo(wrapper);
+
+
+
 
         wrapper[0].style.backgroundColor = params.color
 
