@@ -1,100 +1,140 @@
 <!DOCTYPE html>
 <!--
-	
-	В этом проекте используются следующие библиотеки:
 
-		jQuery 1.10.2
-		jQuery UI 1.10.3
-		Bootstrap 2.2.2
-			
-	 -->
+В этом проекте используются следующие библиотеки:
+jQuery 1.10.2
+jQuery UI 1.10.3
+Bootstrap 2.2.2
 
-
+-->
 <html>
     <head>
         <meta charset="UTF-8">
-
         <title>Нарутрелло</title>
-
         <link rel="stylesheet" href="lib/Bootstrap/bootstrap.min.css" />
         <link rel="stylesheet" href="lib/jQuery/jquery.ui.min.css" />
         <link rel="stylesheet" href="assets/todo.css" />
         <link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" />
-       
+        
     </head>
-
     <body class="well">
-        <div id="container">
+        <div id="EditBackground" style="display: none; background-color: rgb(1,1,1,0.75); z-index: 100; position: fixed; left: 0; right: 0; top: 0; bottom: 0;" onclick="Hide()">
+            
+        </div>
+        <div id="Edit" class="Edit" style="display: none; background-color: #fff; z-index: 150; position: fixed; left: 0; right: 0; top: 0; bottom: 0; ">
+            <input type="text" id="EditID" style="display: none;" />
+            <input type="text" placeholder="Заголовок" class="EditElement" id="EditHeader" />
+            <textarea placeholder="Описание" class="EditElement" id="EditBody" ></textarea>
+            <input type="text" id="datepickerEdit" placeholder="Выберите дату (дд/мм/гггг)" class="EditElement" />
+            
+            <input type="text" id="colorpickerEditor" class="EditElement" >
 
+            <input type="button" class="btn btn-primary" value="Сохранить" onclick="todo.save(); Hide()"/>
+
+        </div>
+        <div id="container">
             <div id="header">Менеджер задач</div>
             
             <div class="task-list" id="pending">
                 <h3>В очереди</h3>
-
             </div>
-
             <div class="task-list" id="inProgress">
                 <h3>В процессе</h3>
             </div>
-
             <div class="task-list" id="completed">
                 <h3>Завершено</h3>
             </div>
-
             <div class="task-list">
                 <h3>Добавить задачу</h3>
                 <form id="todo-form">
                     <input type="text" placeholder="Заголовок" />
                     <textarea placeholder="Описание"></textarea>
                     <input type="text" id="datepicker" placeholder="Выберите дату (дд/мм/гггг)" />
-                   
+                    
                     <input type="text" id="colorpicker">
-
                     <input type="button" class="btn btn-primary" value="Добавить задачу" onclick="todo.add();" />
-                   
+                    
                 </form>
-
                 <input type="button" class="btn btn-primary" value="Очистить все" onclick="todo.clear();" />
-
                 <div id="delete-div">
                     Перенесите сюда для удаления
                 </div>
             </div>
-
             
-
             <div style="clear:both;"></div>
-
         </div>
-       
+        
         <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
         <script type="text/javascript" src="lib/Bootstrap/bootstrap.min.js"></script>
         <script type="text/javascript" src="lib/jQuery/jquery.ui.min.js"></script>
         <script type="text/javascript" src="assets/todo.js"></script>
         <script type="text/javascript" src="js/colorpicker.js"></script>
         
-
-
         <script type="text/javascript">
-            $( "#datepicker" ).datepicker();
-            $( "#datepicker" ).datepicker("option", "dateFormat", "dd/mm/yy");
-            $('#colorpicker').ColorPicker({
-    color: '#0000ff',
-    onShow: function (colpkr) {
+        $( "#datepicker" ).datepicker();
+        $( "#datepicker" ).datepicker("option", "dateFormat", "dd/mm/yy");
+        $( "#datepickerEdit" ).datepicker();
+        $( "#datepickerEdit" ).datepicker("option", "dateFormat", "dd/mm/yy");
+        
+        $('#colorpicker').ColorPicker({
+        color: '#0000ff',
+        onShow: function (colpkr) {
         $(colpkr).fadeIn(500);
         return false;
-    },
-    onHide: function (colpkr) {
+        },
+        onHide: function (colpkr) {
         $(colpkr).fadeOut(500);
         return false;
-    },
-    onChange: function (hsb, hex, rgb) {
+        },
+        onChange: function (hsb, hex, rgb) {
         $('#colorpicker').css('backgroundColor', '#' + hex);
-    }
-});
-          
-            $(".todo-task").draggable();
-            todo.init();
-        </script>
-    </body>
-</html>
+        }
+        });
+        $('#colorpickerEditor').ColorPicker({
+        color: '#0000ff',
+        onShow: function (colpkr) {
+        $(colpkr).fadeIn(500);
+        return false;
+        },
+        onHide: function (colpkr) {
+        $(colpkr).fadeOut(500);
+        return false;
+        },
+        onChange: function (hsb, hex, rgb) {
+        $('#colorpickerEditor').css('backgroundColor', '#' + hex);
+        }
+        });
+        
+        $(".todo-task").draggable();
+        todo.init();
+        function Hide() {
+        $("#EditBackground")[0].style.display = "none"
+        $("#Edit")[0].style.display = "none"
+        
+        }
+        function Show(e) 
+        {
+            $("#EditBackground")[0].style.display = "block"
+            var plane = $("#Edit")[0].style.display = "block"
+            var parent = e.target.parentNode
+        
+            var array = []
+            array[0] = $("#EditHeader")
+            array[2]= $("#EditBody")
+            array[1]= $("#datepickerEdit")
+            
+            for (var i = 0; i < parent.children.length-1; i++) 
+            {
+               array[i][0].value = parent.children[i+1].outerText
+                
+            }
+           
+            $("#colorpickerEditor")[0].style.backgroundColor = parent.style.backgroundColor
+           
+           $("#EditID")[0].value = parent.id.replace("task-", "")
+
+
+        }
+            </script>
+        </body>
+    </html>

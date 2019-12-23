@@ -126,14 +126,13 @@ data = data || {};
         }).appendTo(parent);
 
          var i = $("<img />", {
-            "src": "61776.png"
+            "src": "61776.png",
         })
 
         i[0].style.width = "15px"
         i[0].style.height = "15px"
         i[0].style.float = "right"
-        
-
+        i[0].onclick = function(e) {Show(e)}
 
         i.appendTo(wrapper);
 
@@ -151,9 +150,6 @@ data = data || {};
             "class" : defaults.todoDescription,
             "text": params.description
         }).appendTo(wrapper);
-
-
-
 
         wrapper[0].style.backgroundColor = params.color
 
@@ -254,4 +250,29 @@ data = data || {};
         $("." + defaults.todoTask).remove();
     };
 
+    todo.save = function()
+    {
+        var head = $("#EditHeader")[0].value
+        var body = $("#EditBody")[0].value
+        var date = $("#datepickerEdit")[0].value
+        var color =  $("#colorpickerEditor")[0].style.backgroundColor       
+        var id = $("#EditID")[0].value       
+        
+        object = data[id]
+
+        removeElement(object);
+
+        // Изменяем object 
+         object.color = color;
+         object.date = date
+         object.description = body
+         object.title = head
+        // Генерируем новый элемент
+        generateElement(object);
+        // Обновляем Local Storage
+        data[id] = object;
+        localStorage.setItem("todoData", JSON.stringify(data));
+    }
+
 })(todo, data, jQuery);
+
